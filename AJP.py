@@ -16,11 +16,13 @@ from collections import Counter
 from time import gmtime, strftime
 from datetime import datetime, timedelta
 
-Path = "/home/PinLiang/"
+Path = "/home/pinLiang/"
 ErrorPath = "/home/pinliang/error.log"
-Apachecmd = "service apache2 restart"
-Tomcatcmd = "service tomcat7 restart"
-Activemqcmd = "service activemq restart"
+#Apachecmd = "service apache2 restart"
+#Tomcatcmd = "service tomcat7 restart"
+#Activemqcmd = "service activemq restart"
+#Nginxcmd = "service nginx restart"
+#Activemqcmd2 = "/home/pinliang/ChatChat/apache-activemq-5.8.0/bin/./activemq restart"
 
 if not os.path.exists(Path):
 	os.makedirs(Path)
@@ -39,13 +41,12 @@ def AJPFaile():
 
 	if (len(lineList) != 0 and len(lineList) > 2):
 		if (checklist[-1] != lineList[-1]):
-			if ((" ".join((lineList[-1].split("] ")[2]).split()) == "(70007)The timeout specified has expired: proxy: dialog to (null) (localhost) failed") or (" ".join((lineList[-1].split("] ")[2]).split()) == "(70007)The timeout specified has expired: proxy: dialog to 127.0.0.1:8009 (localhost) failed")):
-				if (" ".join((lineList[-2].split("] ")[2]).split()) == "ajp_read_header: ajp_ilink_receive failed"):
-					if (" ".join((lineList[-3].split("] ")[2]).split()) == "(70007)The timeout specified has expired: ajp_ilink_receive() can't receive header"):
-						os.system("service nginx restart")
-						file = open(Path+"Data", "w")
-						file.write(lineList[-1])
-						file.close()
+			if "(70007)" in lineList[-1]:
+				#os.system(Activemqcmd2)
+				print "Hello World!"
+				file = open(Path+"Data", "w")
+				file.write(lineList[-1])
+				file.close()
 
 class App():
 
